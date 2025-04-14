@@ -3,3 +3,4 @@ spawn_coords:
   y: 67.5
   z: -5.5
 messages:
+  teleport_to_spawn: "<gold>Teleporting to spawn..."
