@@ -1,7 +1,7 @@
 name: Rabbit
 version: '${project.version}'
 main: me.rabbittv.rabbit.Rabbit
-api-version: '1.20'
+api-version: '1.21.4'
 commands:
   spawn:
     description: Get teleported to spawn
@@ -14,7 +14,3 @@ commands:
     description: Send the website the the player
     usage: /<command>
     aliases: buy
-  discord:
-   description: Send the discord to the player
-   usage: /<command>
-   aliases: dc
