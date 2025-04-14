@@ -4,3 +4,7 @@ spawn_coords:
   z: -5.5
 messages:
   teleport_to_spawn: "<gold>Teleporting to spawn..."
+  website: "<red><b>Visit the website<br><click:open_url:https://www.rabbit-network.net>www.rabbit-network.net"
+  nv_add: "<blue>You now have night vision."
+  nv_remove: "<blue>You removed you night vision effect."
+  not_a_player: "<dark_red>You have to be a player to use that command."

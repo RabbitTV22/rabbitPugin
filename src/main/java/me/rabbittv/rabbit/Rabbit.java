@@ -1,7 +1,10 @@
 package me.rabbittv.rabbit;
 
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -43,38 +46,54 @@ public final class Rabbit extends JavaPlugin implements Listener {
                 Player player = (Player) sender;
                 Location teleportLocation = new Location(player.getWorld(), Config.getDouble("x", 2.5), Config.getDouble("y", 67.5), Config.getDouble("z", -5.5));
                 player.teleport(teleportLocation);
+                Audience p = (Audience) sender;
                 var Spawn = MiniMessage.miniMessage();
                 Component Parsed = Spawn.deserialize(MessagesConfig.getString("teleport_to_spawn", "<gold>Teleporting to spawn..."));
-                player.sendMessage(String.valueOf(Parsed));
-                return true;
+                p.sendMessage(Parsed);
+                return false;
             } else {
-                sender.sendMessage("You need to be in-game to use that");
+                Audience p = (Audience) sender;
+                var message = MiniMessage.miniMessage();
+                Component Parsed = message.deserialize(MessagesConfig.getString("not_a_player", "<dark_red>You have to be a player to use that command."));
+                p.sendMessage(Parsed);
             }
         } else if (command.getName().equalsIgnoreCase("website")) {
             if (sender instanceof Player) {
-                Player player = (Player) sender;
-                player.sendMessage(ChatColor.BOLD + "" + ChatColor.RED + "Visit the website!\n" + ChatColor.RED + "https://www.rabbit-network.net");
+                Audience p = (Audience) sender;
+                var message = MiniMessage.miniMessage();
+                Component Parsed = message.deserialize(MessagesConfig.getString("website", "<red><b>Visit the website<br><click:open_url:https://www.rabbit-network.net>www.rabbit-network.net"));
+                p.sendMessage(Parsed);
             } else if (sender instanceof ConsoleCommandSender) {
-                sender.sendMessage("You need to be in-game to use that");
+                Audience p = (Audience) sender;
+                var message = MiniMessage.miniMessage();
+                Component Parsed = message.deserialize(MessagesConfig.getString("not_a_player", "<dark_red>You have to be a player to use that command."));
+                p.sendMessage(Parsed);
             }
             return true;
         } else if (command.getName().equalsIgnoreCase("nv")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
+                Audience p = (Audience) sender;
+                var message = MiniMessage.miniMessage();
 
                 // Check if the player already has night vision
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                     // If they have night vision, remove it
                     player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-                    player.sendMessage(ChatColor.BLUE+ "You removed your night vision effect");
+                    Component Parsed = message.deserialize(MessagesConfig.getString("nv_remove", "<blue>You removed you night vision effect."));
+                    p.sendMessage(Parsed);
                 } else {
                     // If they don't have night vision, give it to them
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false));
-                    player.sendMessage(ChatColor.BLUE+ "You now have night vision");
+                    Component Parsed = message.deserialize(MessagesConfig.getString("nv_add", "<blue>You now have night vision."));
+                    p.sendMessage(Parsed);
                 }
-                return true;
+                return false;
             } else {
-                sender.sendMessage(ChatColor.RED + "Only players can use this command!");
+                Audience p = (Audience) sender;
+                var message = MiniMessage.miniMessage();
+                Component Parsed = message.deserialize(MessagesConfig.getString("not_a_player", "<dark_red>You have to be a player to use that command."));
+                p.sendMessage(Parsed);
             }
         }
         return false;
