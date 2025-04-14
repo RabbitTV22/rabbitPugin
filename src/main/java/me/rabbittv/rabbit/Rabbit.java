@@ -5,6 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,8 +15,20 @@ import org.bukkit.potion.PotionEffectType;
 
 public final class Rabbit extends JavaPlugin implements Listener {
 
+    private ConfigurationSection Config;
+    private ConfigurationSection MessagesConfig;
+
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+        FileConfiguration config = getConfig();
+        Config = config.getConfigurationSection("spawn_coords");
+        MessagesConfig = config.getConfigurationSection("messages");
+        if (Config == null || Config == null) {
+            getLogger().warning("Configuration sections not found! Disabling plugin.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         getLogger().info("Sigma!");
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new EventHandlers(), this);
@@ -25,7 +39,7 @@ public final class Rabbit extends JavaPlugin implements Listener {
         if (command.getName().equalsIgnoreCase("spawn")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                Location teleportLocation = new Location(player.getWorld(), 2.5, 67.5, -5.5);
+                Location teleportLocation = new Location(player.getWorld(), Config.getDouble("x", 2.5), Config.getDouble("y", 67.5), Config.getDouble("z", -5.5));
                 player.teleport(teleportLocation);
                 player.sendMessage(ChatColor.GOLD + "Teleporting to spawn...");
                 return true;
