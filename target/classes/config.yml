@@ -1,0 +1,7 @@
+spawn_coords:
+  x: 2.5
+  y: 67.5
+  z: -5.5
+messages:
+  teleport_to_spawn: "<gold>Teleporting to spawn..."
+  

@@ -1,5 +1,7 @@
 package me.rabbittv.rabbit;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -41,7 +43,9 @@ public final class Rabbit extends JavaPlugin implements Listener {
                 Player player = (Player) sender;
                 Location teleportLocation = new Location(player.getWorld(), Config.getDouble("x", 2.5), Config.getDouble("y", 67.5), Config.getDouble("z", -5.5));
                 player.teleport(teleportLocation);
-                player.sendMessage(ChatColor.GOLD + "Teleporting to spawn...");
+                var Spawn = MiniMessage.miniMessage();
+                Component Parsed = Spawn.deserialize(MessagesConfig.getString("teleport_to_spawn", "<gold>Teleporting to spawn..."));
+                player.sendMessage(String.valueOf(Parsed));
                 return true;
             } else {
                 sender.sendMessage("You need to be in-game to use that");
