@@ -1,7 +1,7 @@
 name: Rabbit
-version: '${project.version}'
+version: 'rabbit-network'
 main: me.rabbittv.rabbit.Rabbit
-api-version: '1.21.4'
+api-version: '1.21'
 commands:
   spawn:
     description: Get teleported to spawn

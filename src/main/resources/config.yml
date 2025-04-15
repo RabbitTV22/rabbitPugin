@@ -8,3 +8,5 @@ messages:
   nv_add: "<blue>You now have night vision."
   nv_remove: "<blue>You removed you night vision effect."
   not_a_player: "<dark_red>You have to be a player to use that command."
+  first_join_message: "<red><bold>Welcome %player% to the server for the first time!"
+  join_message: "<gray>%player% joined the game."
