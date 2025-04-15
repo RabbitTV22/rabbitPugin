@@ -14,3 +14,8 @@ commands:
     description: Send the website the the player
     usage: /<command>
     aliases: buy
+  rabbitreload:
+    description: Reloads the config
+    usage: /<command>
+    aliases:
+      - rr

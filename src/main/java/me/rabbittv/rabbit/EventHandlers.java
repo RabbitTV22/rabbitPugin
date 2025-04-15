@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -62,6 +63,12 @@ public class EventHandlers implements Listener {
             Component joinMsg = miniMessage.deserialize(MessagesConfig.getString("join_message", "<gray>%player% joined the game.").replace("%player%", player.getName()));
             e.joinMessage(joinMsg);
         }
+    }
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
+        Component leaveMsg = miniMessage.deserialize(MessagesConfig.getString("leave_message", "<rainbow>%player% has left the game.").replace("%player%", player.getName()));
+        e.quitMessage(leaveMsg);
     }
 
 }

@@ -10,3 +10,5 @@ messages:
   not_a_player: "<dark_red>You have to be a player to use that command."
   first_join_message: "<red><bold>Welcome %player% to the server for the first time!"
   join_message: "<gray>%player% joined the game."
+  leave_message: "<rainbow>%player% has left the game."
+  config_reload: "<green>Config has been reloaded."

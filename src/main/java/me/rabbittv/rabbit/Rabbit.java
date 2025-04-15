@@ -7,8 +7,10 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,11 +49,12 @@ public final class Rabbit extends JavaPlugin implements Listener {
                 Audience p = (Audience) sender;
                 Component Parsed = miniMessage.deserialize(MessagesConfig.getString("teleport_to_spawn", "<gold>Teleporting to spawn..."));
                 p.sendMessage(Parsed);
-                return false;
+                return true;
             } else {
                 Audience p = (Audience) sender;
                 Component Parsed = miniMessage.deserialize(MessagesConfig.getString("not_a_player", "<dark_red>You have to be a player to use that command."));
                 p.sendMessage(Parsed);
+                return true;
             }
         } else if (command.getName().equalsIgnoreCase("website")) {
             if (sender instanceof Player) {
@@ -62,8 +65,9 @@ public final class Rabbit extends JavaPlugin implements Listener {
                 Audience p = (Audience) sender;
                 Component Parsed = miniMessage.deserialize(MessagesConfig.getString("not_a_player", "<dark_red>You have to be a player to use that command."));
                 p.sendMessage(Parsed);
+                return true;
             }
-            return false;
+            return true;
         } else if (command.getName().equalsIgnoreCase("nv")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
@@ -76,18 +80,33 @@ public final class Rabbit extends JavaPlugin implements Listener {
                     Component Parsed = miniMessage.deserialize(MessagesConfig.getString("nv_remove", "<blue>You removed you night vision effect."));
                     p.sendMessage(Parsed);
                 } else {
-                    // If they don't have night vision, give it to them
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false));
                     Component Parsed = miniMessage.deserialize(MessagesConfig.getString("nv_add", "<blue>You now have night vision."));
                     p.sendMessage(Parsed);
+
                 }
-                return false;
+                return true;
             } else {
                 Audience p = (Audience) sender;
                 Component Parsed = miniMessage.deserialize(MessagesConfig.getString("not_a_player", "<dark_red>You have to be a player to use that command."));
                 p.sendMessage(Parsed);
+                return true;
             }
-        }
+        } else if (command.getName().equalsIgnoreCase("rabbitreload") && sender.hasPermission("rabbit.reload")) {
+                reloadConfig();
+                Config = getConfig().getConfigurationSection("spawn_coords");
+                MessagesConfig = getConfig().getConfigurationSection("messages");
+
+                if (Config == null || MessagesConfig == null) {
+                    getLogger().warning("Failed to reload config: missing sections.");
+                    getServer().getPluginManager().disablePlugin(this);
+                    return true;
+                }
+                Audience p = (Audience) sender;
+                Component Parsed = miniMessage.deserialize(MessagesConfig.getString("config_reload", "<green>Config has been reloaded."));
+                p.sendMessage(Parsed);
+                return true;
+            }
         return false;
     }
 
