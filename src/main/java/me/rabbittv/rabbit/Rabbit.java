@@ -10,14 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.io.File;
 
 public final class Rabbit extends JavaPlugin implements Listener {
 
@@ -33,13 +30,21 @@ public final class Rabbit extends JavaPlugin implements Listener {
         Config = config.getConfigurationSection("spawn_coords");
         MessagesConfig = config.getConfigurationSection("messages");
         BroadcastConfig = config.getConfigurationSection("broadcast");
+        if (BroadcastConfig != null) {
+            for (String key : BroadcastConfig.getKeys(false)) {
+                ConfigurationSection section = BroadcastConfig.getConfigurationSection(key);
+                if (section != null) {
+                    int delay = section.getInt("delay", 60);
+                    Broadcast broadcastTask = new Broadcast(this, section);
+                    Bukkit.getScheduler().runTaskTimer(this, broadcastTask, 0L, delay * 20L);
+                }
+            }
+        }
         if (Config == null || MessagesConfig == null) {
             getLogger().warning("Configuration sections not found! Disabling plugin.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        new Broadcast(this, MessagesConfig).run();
-        Bukkit.getScheduler().runTaskTimer(this, new Broadcast(this, MessagesConfig), 20L, 20 * BroadcastConfig.getInt("broadcast_delay", 60));
         getLogger().info("Sigma!");
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new EventHandlers(this, MessagesConfig, Config), this);

@@ -13,5 +13,9 @@ messages:
   leave_message: "<rainbow>%player% has left the game."
   config_reload: "<green>Config has been reloaded."
 broadcast:
-  broadcast_delay: 60 # in seconds
-  message_1: <gold>Annoucement.
+  broadcast_1:
+    delay: 60 # in seconds
+    message: <gold>Annoucement 1.
+  broadcast_2:
+    delay: 30 # in seconds
+    message: <gold>Annoucement 2.

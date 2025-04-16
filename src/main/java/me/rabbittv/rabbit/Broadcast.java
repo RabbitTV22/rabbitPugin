@@ -8,19 +8,18 @@ import org.bukkit.plugin.Plugin;
 
 public class Broadcast implements Runnable {
     public final Plugin plugin;
-    private final ConfigurationSection BroadcastConfig;
+    private final String message;
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public Broadcast(Plugin plugin, ConfigurationSection BroadcastConfig) {
         this.plugin = plugin;
-        this.BroadcastConfig = BroadcastConfig;
+        this.message = BroadcastConfig.getString("message", "<gray>default message");
     }
     public void run(){
-        if (Bukkit.getOnlinePlayers().isEmpty()) {
-            String message = BroadcastConfig.getString("message_1", "<gold>Annoucement.");
+        if (!Bukkit.getOnlinePlayers().isEmpty()) {
             Component Parsed = miniMessage.deserialize(message);
             Bukkit.broadcast(Parsed);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Broadcast(plugin, BroadcastConfig));
+           // Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Broadcast(plugin, BroadcastConfig));
         }
     }
 
