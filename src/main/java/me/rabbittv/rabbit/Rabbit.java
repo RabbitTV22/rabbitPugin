@@ -3,11 +3,11 @@ package me.rabbittv.rabbit;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,10 +17,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.io.File;
+
 public final class Rabbit extends JavaPlugin implements Listener {
 
     private ConfigurationSection Config;
-    public ConfigurationSection MessagesConfig;
+    private ConfigurationSection MessagesConfig;
+    private ConfigurationSection BroadcastConfig;
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @Override
@@ -29,15 +32,19 @@ public final class Rabbit extends JavaPlugin implements Listener {
         FileConfiguration config = getConfig();
         Config = config.getConfigurationSection("spawn_coords");
         MessagesConfig = config.getConfigurationSection("messages");
+        BroadcastConfig = config.getConfigurationSection("broadcast");
         if (Config == null || MessagesConfig == null) {
             getLogger().warning("Configuration sections not found! Disabling plugin.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        new Broadcast(this, MessagesConfig).run();
+        Bukkit.getScheduler().runTaskTimer(this, new Broadcast(this, MessagesConfig), 20L, 20 * BroadcastConfig.getInt("broadcast_delay", 60));
         getLogger().info("Sigma!");
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new EventHandlers(this, MessagesConfig, Config), this);
-    }
+        }
+
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -73,9 +80,7 @@ public final class Rabbit extends JavaPlugin implements Listener {
                 Player player = (Player) sender;
                 Audience p = (Audience) sender;
 
-                // Check if the player already has night vision
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
-                    // If they have night vision, remove it
                     player.removePotionEffect(PotionEffectType.NIGHT_VISION);
                     Component Parsed = miniMessage.deserialize(MessagesConfig.getString("nv_remove", "<blue>You removed you night vision effect."));
                     p.sendMessage(Parsed);
@@ -96,7 +101,7 @@ public final class Rabbit extends JavaPlugin implements Listener {
                 reloadConfig();
                 Config = getConfig().getConfigurationSection("spawn_coords");
                 MessagesConfig = getConfig().getConfigurationSection("messages");
-
+                BroadcastConfig = getConfig().getConfigurationSection("broadcast");
                 if (Config == null || MessagesConfig == null) {
                     getLogger().warning("Failed to reload config: missing sections.");
                     getServer().getPluginManager().disablePlugin(this);

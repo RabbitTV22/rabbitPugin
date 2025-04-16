@@ -16,6 +16,9 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        url = 'https://repo.extendedclip.com/releases/'
+    }
 }
 
 dependencies {
@@ -23,6 +26,9 @@ dependencies {
 }
 dependencies {
     implementation "net.kyori:adventure-text-minimessage:4.20.0"
+}
+dependencies {
+    compileOnly 'me.clip:placeholderapi:2.11.6'
 }
 
 tasks {

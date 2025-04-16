@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Rabbit.iml" filepath="$PROJECT_DIR$/Rabbit.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Rabbit.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Rabbit.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Rabbit.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Rabbit.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.rabbittv.Rabbit.main.iml" filepath="$PROJECT_DIR$/.idea/modules/me.rabbittv.Rabbit.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.rabbittv.Rabbit.test.iml" filepath="$PROJECT_DIR$/.idea/modules/me.rabbittv.Rabbit.test.iml" />
     </modules>
   </component>
 </project>

@@ -12,3 +12,6 @@ messages:
   join_message: "<gray>%player% joined the game."
   leave_message: "<rainbow>%player% has left the game."
   config_reload: "<green>Config has been reloaded."
+broadcast:
+  broadcast_delay: 60 # in seconds
+  message_1: <gold>Annoucement.
