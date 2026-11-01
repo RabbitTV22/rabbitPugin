@@ -12,10 +12,4 @@ messages:
   join_message: "<gray>%player% joined the game."
   leave_message: "<rainbow>%player% has left the game."
   config_reload: "<green>Config has been reloaded."
-broadcast:
-  broadcast_1:
-    delay: 60 # in seconds
-    message: <gold>Annoucement 1.
-  broadcast_2:
-    delay: 30 # in seconds
-    message: <gold>Annoucement 2.
+  map: "<gradient:#1535EF:#04ACEE><click:open_url:'https://map.rabbit-network.net'>View the map at <i><u>map.rabbit-network.net</click>"

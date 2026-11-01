@@ -1,5 +1,5 @@
-name: Rabbit
-version: 'rabbit-network'
+name: RabbitPlugin
+version: '1.2.0'
 main: me.rabbittv.rabbit.Rabbit
 api-version: '1.21'
 commands:
@@ -19,3 +19,9 @@ commands:
     usage: /<command>
     aliases:
       - rr
+  rabbitping:
+    description: Ping a host
+    usage: /<command>
+  map:
+    description: Get the map
+    usage: /<command>

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.rabbittv'
-version = 'rabbit-network'
+version = '1.2.0'
 
 repositories {
     mavenCentral()
@@ -22,13 +22,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
 }
 dependencies {
-    implementation "net.kyori:adventure-text-minimessage:5.0.1"
-}
-dependencies {
-    compileOnly 'me.clip:placeholderapi:2.12.2'
+    compileOnly 'me.clip:placeholderapi:2.12.3'
 }
 
 tasks {
@@ -40,7 +37,7 @@ tasks {
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 25
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
