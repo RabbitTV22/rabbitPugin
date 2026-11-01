@@ -1,5 +1,5 @@
 name: RabbitPlugin
-version: '1.2.0'
+version: '${version}'
 main: me.rabbittv.rabbit.Rabbit
 api-version: '1.21'
 commands:
