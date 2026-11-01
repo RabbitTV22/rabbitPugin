@@ -1,4 +1,6 @@
 name: RabbitPlugin
+author: RabbitTV
+website: https://rabbit-network.net
 version: '${version}'
 main: me.rabbittv.rabbit.Rabbit
 api-version: '1.21'
