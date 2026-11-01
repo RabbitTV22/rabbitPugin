@@ -6,6 +6,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Array;
+
 public final class Rabbit extends JavaPlugin implements Listener {
 
     public ConfigurationSection Config;
@@ -25,11 +27,10 @@ public final class Rabbit extends JavaPlugin implements Listener {
         }
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new EventHandlers(this, MessagesConfig, Config), this);
-        Commands commands = new Commands();
-        this.getCommand("spawn").setExecutor(commands);
-        this.getCommand("website").setExecutor(commands);
-        this.getCommand("nv").setExecutor(commands);
-        this.getCommand("rabbitreload").setExecutor(commands);
-        this.getCommand("map").setExecutor(commands);
+        Commands commandsClass = new Commands();
+        String[] commands = {"spawn","website","nv","rabbitreload","map"};
+        for (String command : commands) {
+            this.getCommand(command).setExecutor(commandsClass);
+        }
     }
 }
