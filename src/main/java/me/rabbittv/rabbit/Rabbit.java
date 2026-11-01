@@ -10,7 +10,6 @@ public final class Rabbit extends JavaPlugin implements Listener {
 
     public ConfigurationSection Config;
     public ConfigurationSection MessagesConfig;
-    private final MiniMessage mm = MiniMessage.miniMessage();
 
     @Override
     public void onEnable() {
