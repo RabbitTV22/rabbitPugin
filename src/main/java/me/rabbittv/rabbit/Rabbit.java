@@ -32,7 +32,4 @@ public final class Rabbit extends JavaPlugin implements Listener {
         this.getCommand("rabbitreload").setExecutor(commands);
         this.getCommand("map").setExecutor(commands);
     }
-
-
-
 }
