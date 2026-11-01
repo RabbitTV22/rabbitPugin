@@ -1,16 +1,10 @@
 package me.rabbittv.rabbit;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Location;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public final class Rabbit extends JavaPlugin implements Listener {
 
